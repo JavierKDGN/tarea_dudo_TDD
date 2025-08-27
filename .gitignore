@@ -1,0 +1,21 @@
+# IDE files
+
+.idea/
+.vscode/
+
+
+# Virtual environment
+
+venv/
+
+
+# Python temporary files
+
+*.pyc
+__pycache__/
+*.py~
+
+
+# Git
+
+.gitcommit
