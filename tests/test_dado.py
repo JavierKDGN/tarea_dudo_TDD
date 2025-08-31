@@ -16,3 +16,19 @@ def test_roll():
 	dado.roll()
 	
 	assert (dado.getValue() >= 1) and (dado.getValue() <= 6)
+
+def test_name():
+	value_to_name = {
+		1: 'As',
+		2: 'Tonto',
+		3: 'Tren',
+		4: 'Cuadra',
+		5: 'Quina',
+		6: 'Sexto'
+	}
+	
+	for value in value_to_name:
+		dado = Dado()
+		dado.setValue(value)
+		
+		assert (dado.getName() == value_to_name[value])
