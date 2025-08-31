@@ -7,7 +7,7 @@ class Dado:
 	__MAX_VALUE = 6
 	
 	def __init__(self):
-		self.value = random.randint(self.__MIN_VALUE, self.__MAX_VALUE)
+		self.reroll()
 	
 	def reroll(self):
 		self.value = random.randint(self.__MIN_VALUE, self.__MAX_VALUE)
