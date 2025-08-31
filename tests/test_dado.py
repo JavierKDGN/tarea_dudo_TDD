@@ -10,9 +10,9 @@ def test_value():
 		
 		assert (dado.getValue() == i)
 
-def test_reroll():
+def test_roll():
 	dado = Dado()
 	
-	dado.reroll()
+	dado.roll()
 	
 	assert (dado.getValue() >= 1) and (dado.getValue() <= 6)
