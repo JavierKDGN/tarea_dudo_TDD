@@ -12,10 +12,8 @@ def test_generar_num_determinista():
     assert num == rng.num_fijo
 
 def test_generador_determinista_independiente():
-    rng1 = GeneradorDeterminista()
-    rng1.numero = 1
-    rng2 = GeneradorDeterminista()
-    rng2.numero = 2
+    rng1 = GeneradorDeterminista(num_fijo=1)
+    rng2 = GeneradorDeterminista(num_fijo=2)
 
     assert rng1.generar(1,6) == 1
     assert rng2.generar(1,6) == 2
