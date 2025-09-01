@@ -1,5 +1,5 @@
 import pytest
-from src.game.jugador import Jugador
+from src.game.Jugador import Jugador
 
 def test_jugador_inicia_con_5_dados(mocker):
     # Creamos un Mock del cacho del jugador

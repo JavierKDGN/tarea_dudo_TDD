@@ -11,4 +11,4 @@ class Jugador:
         self.cacho = cacho
 
     def get_cantidad_dados(self):
-        return self.cacho.contar_dados()
+        return len(self.cacho.getDados())
