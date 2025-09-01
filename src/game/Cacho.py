@@ -9,3 +9,7 @@ class Cacho:
 	
 	def getDados(self):
 		return self.__dados
+	
+	def shake(self):
+		for i in range(0, len(self.__dados)):
+			self.__dados[i].roll()
