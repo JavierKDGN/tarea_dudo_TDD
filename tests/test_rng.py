@@ -7,6 +7,15 @@ def test_generar_num_azar():
     assert num in range(1,7)
 
 def test_generar_num_determinista():
-    rng = GeneradorDeterminista()
+    rng = GeneradorDeterminista(num_fijo=1)
     num = rng.generar(min_num=1, max_num=6)
     assert num == rng.numero
+
+def test_generador_determinista_independiente():
+    rng1 = GeneradorDeterminista()
+    rng1.numero = 1
+    rng2 = GeneradorDeterminista()
+    rng2.numero = 2
+
+    assert rng1.generar(1,6) == 1
+    assert rng2.generar(1,6) == 2
