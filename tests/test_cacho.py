@@ -18,3 +18,21 @@ def test_shake():
 	
 	# Cannot test if shake was "successful" because it is absolutely possible
 	# that both lists have the same values after a shake
+
+def test_insert():
+	cacho = Cacho()
+	
+	len1 = len(cacho.getDados())
+	cacho.insertDado()
+	len2 = len(cacho.getDados())
+	
+	assert len2 == len1 + 1
+
+def test_remove():
+	cacho = Cacho()
+	
+	len1 = len(cacho.getDados())
+	cacho.removeDado()
+	len2 = len(cacho.getDados())
+	
+	assert len2 == len1 - 1
