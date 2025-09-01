@@ -8,7 +8,10 @@ class GeneradorAleatorio:
 class GeneradorDeterminista:
     numero = 1
 
+    def __init__(self, num_fijo: int):
+        self.num_fijo = num_fijo
+
     def generar(self, min_num:int, max_num:int):
-        return self.numero
+        return self.num_fijo
 
 
