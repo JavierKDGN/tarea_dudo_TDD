@@ -6,7 +6,6 @@ class GeneradorAleatorio:
         return random.randint(min_num, max_num)
 
 class GeneradorDeterminista:
-    numero = 1
 
     def __init__(self, num_fijo: int):
         self.num_fijo = num_fijo

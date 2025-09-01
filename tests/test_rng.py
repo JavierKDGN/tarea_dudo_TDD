@@ -9,7 +9,7 @@ def test_generar_num_azar():
 def test_generar_num_determinista():
     rng = GeneradorDeterminista(num_fijo=1)
     num = rng.generar(min_num=1, max_num=6)
-    assert num == rng.numero
+    assert num == rng.num_fijo
 
 def test_generador_determinista_independiente():
     rng1 = GeneradorDeterminista()
