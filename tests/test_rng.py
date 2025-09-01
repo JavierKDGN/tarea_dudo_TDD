@@ -1,10 +1,19 @@
 import pytest
+import random
+from pytest_mock import mocker
+
 from src.tools.rng import GeneradorAleatorio, GeneradorDeterminista
 
-def test_generar_num_azar():
+# Tests generador aleatorio usado en juego real
+
+def test_generar_num_azar_con_randint(mocker):
+    mock_randint = mocker.patch('src.tools.rng.random.randint')
     rng = GeneradorAleatorio()
     num = rng.generar(min_num=1, max_num=6)
-    assert num in range(1,7)
+    mock_randint.assert_called_once_with(1,6)
+
+
+# Tests generador determinista usado en tests
 
 def test_generar_num_determinista():
     rng = GeneradorDeterminista(num_fijo=1)
