@@ -32,6 +32,10 @@ class GestorPartida:
 
         self.jugador_actual = list(jugadores_dados_map)[0]
 
+    def avanzar_turno(self):
+        idx = self.jugadores.index(self.jugador_actual)
+        self.jugador_actual = self.jugadores[(idx + 1) % len(self.jugadores)]
+
 
 
 
