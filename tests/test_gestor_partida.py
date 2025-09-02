@@ -3,9 +3,9 @@ from pytest_mock import mocker
 
 from src.game.Cacho import Cacho
 from src.game.Jugador import Jugador
+from src.game.GestorPartida import GestorPartida
 
-
-def test_crear_gestor_con_jugadores():
+def test_crear_gestor_con_jugadores(mocker):
 
     mock_jugador1 = mocker.Mock()
     mock_jugador2 = mocker.Mock()
@@ -16,5 +16,5 @@ def test_crear_gestor_con_jugadores():
     jugadores = [mock_jugador1, mock_jugador2]
     gestor = GestorPartida(jugadores)
 
-    assert gestor.jugadores = jugadores
+    assert gestor.jugadores == jugadores
 
