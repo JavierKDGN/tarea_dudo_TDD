@@ -1,16 +1,26 @@
 import random
 
+from src.game.Jugador import Jugador
+
+
 class GestorPartida:
 
     def __init__(self, jugadores: list):
-        self.jugadores = jugadores
-        self.jugador_actual = None
+        self.__jugadores = jugadores
+        self.__jugador_actual = None
 
-    def get_jugador_actual(self):
-        return self.jugador_actual
+    def get_jugadores(self) -> list[Jugador]:
+        return self.__jugadores
+
+
+    def get_jugador_actual(self) -> Jugador:
+        return self.__jugador_actual
+
+    def set_jugador_actual(self, jugador):
+        self.__jugador_actual = jugador
 
     def determinar_turno_inicial(self):
-        jugadores_dados_map = dict.fromkeys(self.jugadores, 0)
+        jugadores_dados_map = dict.fromkeys(self.__jugadores, 0)
         max_valor = -1
         while len(jugadores_dados_map) > 1:
 
@@ -30,11 +40,11 @@ class GestorPartida:
             for p in perdedores:
                 jugadores_dados_map.pop(p)
 
-        self.jugador_actual = list(jugadores_dados_map)[0]
+        self.__jugador_actual = list(jugadores_dados_map)[0]
 
     def avanzar_turno(self):
-        idx = self.jugadores.index(self.jugador_actual)
-        self.jugador_actual = self.jugadores[(idx + 1) % len(self.jugadores)]
+        idx = self.__jugadores.index(self.__jugador_actual)
+        self.__jugador_actual = self.__jugadores[(idx + 1) % len(self.__jugadores)]
 
 
 
