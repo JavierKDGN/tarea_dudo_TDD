@@ -29,7 +29,11 @@ def test_crear_gestor_con_jugadores(mock_jugadores_factory):
 
     assert [p.nombre for p in gestor.jugadores] == ["Jugador1", "Jugador2"]
 
-def test_determinar_turno_inicial(mock_jugadores_factory):
+def test_determinar_turno_inicial(mock_jugadores_factory, mocker):
+    # 3 jugadores, sus dados seran 1, 6, 1
+    # Parcheamos randint para que saque esos valores
+    # Side effect causa que se retorne en ese orden
+    mocker.patch('src.game.Dado.random.randint', side_effect=[1,6,1])
     gestor = GestorPartida(mock_jugadores_factory(3))
 
     # Haremos que Jugador2 empiece
