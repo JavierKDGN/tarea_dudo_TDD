@@ -29,3 +29,10 @@ def test_crear_gestor_con_jugadores(mock_jugadores_factory):
 
     assert [p.nombre for p in gestor.jugadores] == ["Jugador1", "Jugador2"]
 
+def test_determinar_turno_inicial(mock_jugadores_factory):
+    gestor = GestorPartida(mock_jugadores_factory(3))
+
+    # Haremos que Jugador2 empiece
+    gestor.determinar_turno_inicial()
+    assert gestor.jugador_actual.nombre == "Jugador2"
+
