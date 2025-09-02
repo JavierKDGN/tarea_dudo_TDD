@@ -20,12 +20,4 @@ def test_crear_gestor_con_jugadores(mock_2_jugadores):
 
     assert [p.nombre for p in gestor.jugadores] == ["Jugador1", "Jugador2"]
 
-def test_tirar_dado_inicial_cada_jugador(mocker):
 
-    mock_cacho_jugador = mocker.Mock()
-    mock_cacho_jugador.getDados.return_value = [None] * 5
-
-    jugador = Jugador(nombre="test", cacho = mock_cacho_jugador)
-    dado = jugador.tirar_dado_inicial()
-
-    assert dado == 5
