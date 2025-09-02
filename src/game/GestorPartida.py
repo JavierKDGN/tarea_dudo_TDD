@@ -1,4 +1,4 @@
-from src.game.Dado import Dado
+import random
 
 class GestorPartida:
 
@@ -15,8 +15,8 @@ class GestorPartida:
         while len(jugadores_dados_map) > 1:
 
             for jugador in jugadores_dados_map.keys():
-                dado = Dado()
-                jugadores_dados_map[jugador] = dado.getValue()
+                dado = random.randint(1,6)
+                jugadores_dados_map[jugador] = dado
 
             jugadores_dados_map = dict(sorted(jugadores_dados_map.items(),key=lambda x:x[1], reverse=True))
             max_valor = next(iter(jugadores_dados_map.values()))
