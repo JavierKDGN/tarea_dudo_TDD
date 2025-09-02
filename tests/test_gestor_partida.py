@@ -32,3 +32,14 @@ def test_determinar_turno_inicial_empate(mock_jugadores_factory, mocker):
     # Deberia haber empate entre jugador2 y jugador3, se vuelve a lanzar el dado entre esos 2
     gestor.determinar_turno_inicial()
     assert gestor.get_jugador_actual().nombre == "Jugador2"
+
+def test_siguiente_turno_2_jugadores(mock_jugadores_factory):
+    jugadores = mock_jugadores_factory(2)
+    gestor = GestorPartida(jugadores)
+    gestor.jugador_actual = gestor.jugadores[0]
+
+    assert gestor.get_jugador_actual() == jugadores[0]
+
+    gestor.avanzar_turno()
+
+    assert gestor.get_jugador_actual() == jugadores[1]
