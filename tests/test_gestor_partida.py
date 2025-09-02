@@ -34,5 +34,5 @@ def test_determinar_turno_inicial(mock_jugadores_factory):
 
     # Haremos que Jugador2 empiece
     gestor.determinar_turno_inicial()
-    assert gestor.jugador_actual.nombre == "Jugador2"
+    assert gestor.get_jugador_actual().nombre == "Jugador2"
 
