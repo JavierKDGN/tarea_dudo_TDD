@@ -1,22 +1,22 @@
 import random
 
 class Dado:
-	__name = None
-	__value = None
-	
-	__MIN_VALUE = 1
-	__MAX_VALUE = 6
-	
-	__NAMES = {
-		1: 'As',
-		2: 'Tonto',
-		3: 'Tren',
-		4: 'Cuadra',
-		5: 'Quina',
-		6: 'Sexto'
-	}
-	
 	def __init__(self):
+		self.__name = None
+		self.__value = None
+		
+		self.__MIN_VALUE = 1
+		self.__MAX_VALUE = 6
+		
+		self.__NAMES = {
+			1: 'As',
+			2: 'Tonto',
+			3: 'Tren',
+			4: 'Cuadra',
+			5: 'Quina',
+			6: 'Sexto'
+		}
+		
 		self.roll()
 	
 	def getName(self):

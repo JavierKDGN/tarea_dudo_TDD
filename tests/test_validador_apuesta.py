@@ -9,9 +9,10 @@ def test_is_correct():
 		(Apuesta(number = 3, amount = 2), True), # Correct, valid start
 		(Apuesta(number = 3, amount = 2), False), # Incorrect, same values
 		(Apuesta(number = 3, amount = 3), True), # Correct, same number, greater amount
-		(Apuesta(number = 1, amount = 4), True), # Correct, smaller number, greater amount
+		(Apuesta(number = 2, amount = 4), True), # Correct, smaller number, greater amount
 		(Apuesta(number = 4, amount = 2), True), # Correct, greater number, smaller amount
 		(Apuesta(number = 5, amount = 3), True), # Correct, can increase both
+		(Apuesta(number = 4, amount = 2), False), # Incorrect, both smaller
 		(Apuesta(number = 3, amount = 7), True), # Correct, smaller number, greater amount
 		(Apuesta(number = 1, amount = 3), False), # Incorrect, moving to 1's but 3 < ((7 // 2) + 1)
 		(Apuesta(number = 1, amount = 4), True), # Correct, moving to 1's and 4 >= ((7 // 2) + 1)
