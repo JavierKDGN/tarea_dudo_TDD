@@ -1,3 +1,5 @@
+from src.game.Cacho import Cacho
+
 
 class Jugador:
 
@@ -7,8 +9,20 @@ class Jugador:
         :param cacho: Dependency Injection de una instancia de Cacho
         '''
 
-        self.nombre = nombre
-        self.cacho = cacho
+        self.__nombre = nombre
+        self.__cacho = cacho
 
-    def get_cantidad_dados(self):
-        return len(self.cacho.getDados())
+    def getCantidadDados(self):
+        return len(self.__cacho.getDados())
+
+    def getCacho(self):
+        return self.__cacho
+
+    def setCacho(self, cacho: Cacho):
+        self.__cacho = cacho
+
+    def getNombre(self):
+        return self.__nombre
+
+    def setNombre(self, nombre):
+        self.__nombre = nombre
