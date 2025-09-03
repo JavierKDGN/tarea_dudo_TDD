@@ -20,7 +20,7 @@ class ArbitroRonda:
                         - resultado (int): -1 si pierde, 1 si gana.
                           En caso de acción inválida, retorna -1.
                 """
-        dados = [dado for j in jugadores for dado in j.cacho.getDados()]
+        dados = [dado for j in jugadores for dado in j.getCacho().getDados()]
 
         cantidad_pinta = ContadorPintas.contar(dados,pinta)
         if accion == "dudo":

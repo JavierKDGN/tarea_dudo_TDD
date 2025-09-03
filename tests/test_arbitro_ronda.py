@@ -22,7 +22,7 @@ def test_dudo_correcto(mocker):
 
     for i in range(3):
         dados = [make_dado(val) for val in valores_dados[i]]
-        mocker.patch.object(jugadores[i].cacho,"getDados",return_value=dados)
+        mocker.patch.object(jugadores[i].getCacho(),"getDados",return_value=dados)
 
     assert ArbitroRonda.resolver(jugadores,jugador1,jugador2,cantidad_apuesta,pinta,"dudo") == (jugador1,-1)
 def test_dudo_incorrecto(mocker):
@@ -39,7 +39,7 @@ def test_dudo_incorrecto(mocker):
 
     for i in range(3):
         dados = [make_dado(val) for val in valores_dados[i]]
-        mocker.patch.object(jugadores[i].cacho,"getDados",return_value=dados)
+        mocker.patch.object(jugadores[i].getCacho(),"getDados",return_value=dados)
 
     assert ArbitroRonda.resolver(jugadores,jugador1,jugador2,cantidad_apuesta,pinta,"dudo") == (jugador2,-1)
 def test_calzo_correcto(mocker):
@@ -56,7 +56,7 @@ def test_calzo_correcto(mocker):
 
     for i in range(3):
         dados = [make_dado(val) for val in valores_dados[i]]
-        mocker.patch.object(jugadores[i].cacho,"getDados",return_value=dados)
+        mocker.patch.object(jugadores[i].getCacho(),"getDados",return_value=dados)
 
     assert ArbitroRonda.resolver(jugadores,jugador1,jugador2,cantidad_apuesta,pinta,"calzo") == (jugador2,1)
 def test_calzo_incorrecto(mocker):
@@ -73,6 +73,6 @@ def test_calzo_incorrecto(mocker):
 
     for i in range(3):
         dados = [make_dado(val) for val in valores_dados[i]]
-        mocker.patch.object(jugadores[i].cacho,"getDados",return_value=dados)
+        mocker.patch.object(jugadores[i].getCacho(),"getDados",return_value=dados)
 
     assert ArbitroRonda.resolver(jugadores,jugador1,jugador2,cantidad_apuesta,pinta,"calzo") == (jugador2,-1)
