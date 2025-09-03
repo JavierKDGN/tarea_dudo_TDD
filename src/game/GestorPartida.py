@@ -47,6 +47,8 @@ class GestorPartida:
 
     def perdida_de_dado(self, jugador_perdedor: Jugador):
         jugador_perdedor.get_cacho().removeDado()
+        if len(jugador_perdedor.get_cacho().getDados()) == 0:
+            self.__jugadores.remove(jugador_perdedor)
 
 
 
