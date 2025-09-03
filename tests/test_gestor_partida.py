@@ -150,11 +150,41 @@ def test_gestor_invoca_arbitro_en_duda(mock_jugadores_factory, mocker):
     gestor.setApuestaActual(apuesta_actual)
     gestor.setJugadorActual(jugador_actual)
 
-    mock_resolver = mocker.patch('src.game.GestorPartida.ArbitroRonda.resolver')
+    mock_resolver = mocker.patch('src.game.GestorPartida.ArbitroRonda.resolver', return_value=(jugador_anterior, -1))
     gestor.dudar()
 
-    mock_resolver.assert_called_once_with(jugadores,jugador_anterior,jugador_actual,3,5,"dudo")
+    mock_resolver.assert_called_once_with(
+        jugadores=jugadores,
+        jugador1=jugador_anterior,
+        jugador2=jugador_actual,
+        cantidad_apuesta=3,
+        pinta=5,
+        accion="dudo"
+    )
 
+def test_gestor_invoca_arbitro_al_calzar(mock_jugadores_factory, mocker):
+    jugadores = mock_jugadores_factory(2, 1)
+    apuesta_actual = mocker.Mock()
+    apuesta_actual.get_number.return_value = 5
+    apuesta_actual.get_amount.return_value = 3
+    jugador_anterior = jugadores[0]
+    jugador_actual = jugadores[1]
+
+    gestor = GestorPartida(jugadores)
+    gestor.setApuestaActual(apuesta_actual)
+    gestor.setJugadorActual(jugador_actual)
+
+    mock_resolver = mocker.patch('src.game.GestorPartida.ArbitroRonda.resolver', return_value=(jugador_anterior, -1))
+    gestor.calzar()
+
+    mock_resolver.assert_called_once_with(
+        jugadores=jugadores,
+        jugador1=jugador_anterior,
+        jugador2=jugador_actual,
+        cantidad_apuesta=3,
+        pinta=5,
+        accion="calzo"
+    )
 
 
 
