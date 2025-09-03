@@ -1,5 +1,6 @@
 import random
 
+from src.game.ArbitroRonda import ArbitroRonda
 from src.game.Jugador import Jugador
 from src.game.ValidadorApuesta import Apuesta, ValidadorApuesta
 
@@ -30,6 +31,10 @@ class GestorPartida:
 
     def getPartidaTerminada(self):
         return self.__partida_terminada
+
+    def getJugadorAnterior(self):
+        jugador_anterior = self.__jugadores[(self.__indice_jugador_actual - 1) % len(self.__jugadores)]
+        return jugador_anterior
 
     def determinar_turno_inicial(self):
         jugadores_dados_map = dict.fromkeys(self.__jugadores, 0)
@@ -74,6 +79,7 @@ class GestorPartida:
             self.__jugador_actual = self.__jugadores.pop()
             self.__partida_terminada = True
 
+
     def resolver_ronda_con_perdedor(self, jugador_perdedor: Jugador):
         self._quitar_dado_a_jugador(jugador_perdedor)
         self._verificar_eliminacion_jugador(jugador_perdedor)
@@ -93,6 +99,8 @@ class GestorPartida:
             else:
                 pass
 
+    def dudar(self):
+        ArbitroRonda.resolver(self.__jugadores, jugador_anterior, self.__jugador_actual, self.__apuesta_actual.get_number, self.__apuesta_actual.get_amount, "dudo" )
 
 
 
