@@ -8,4 +8,4 @@ if [[ $? != 0 ]]; then
 	source ./venv/bin/activate
 fi
 
-python3 -m pytest --cov='code' --cov-report='term-missing'
+python3 -m pytest --cov='src' --cov-report='term-missing'
