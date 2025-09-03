@@ -31,3 +31,32 @@ def test_is_correct():
 		
 		if correct:
 			prev = curr
+
+def test_is_correct_special():
+	validador_apuesta = ValidadorApuesta()
+	
+	apuestas = [
+		(Apuesta(number = 1, amount = 1), True, True), # Correct, any start is ok
+		(Apuesta(number = 2, amount = 3), False, False), # Incorrect, cannot change number with more than one dice
+		(Apuesta(number = 1, amount = 4), False, True), # Correct, same number, increases amount
+		(Apuesta(number = 1, amount = 5), False, True), # Correct, same number, increases amount
+		(Apuesta(number = 2, amount = 3), True, False), # Incorrect, can change number but amount must be greater
+		(Apuesta(number = 2, amount = 6), True, True) # Correct, has one dice so can change number
+	]
+	
+	first = None
+	prev = None
+	curr = None
+		
+	for i in range(0, len(apuestas)):
+		curr = apuestas[i][0]
+		has_one = apuestas[i][1]
+		correct = apuestas[i][2]
+		
+		assert validador_apuesta.is_correct_special(first, prev, curr, has_one) == correct
+		
+		if correct:
+			if prev == None:
+				first = curr
+			
+			prev = curr
