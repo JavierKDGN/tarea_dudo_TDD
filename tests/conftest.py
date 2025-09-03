@@ -12,8 +12,24 @@ def mock_jugadores_factory(mocker):
         jugadores = []
         for i in range(num_jugadores):
             jugador = mocker.Mock()
-            jugador.nombre = f"Jugador{i+1}"
-            jugador.get_cantidad_dados.return_value = num_dados_por_jugador
+            jugador.__nombre = f"Jugador{i+1}"
+
+            dados = [object() for i in range (num_dados_por_jugador)]
+
+            def getDados():
+                return list(dados)
+
+            def removeDado():
+                if dados:
+                    dados.pop(0)
+
+            jugador.__cacho = mocker.Mock()
+            jugador.__cacho.getDados.side_effect = getDados
+            jugador.__cacho.removeDado.side_effect = removeDado
+
+            jugador.getCacho.return_value = jugador.__cacho
+            jugador.getNombre.return_value = jugador.__nombre
+
             jugadores.append(jugador)
         return jugadores
     return _create

@@ -8,4 +8,4 @@ def test_jugador_inicia_con_5_dados(mocker):
     mock_cacho_jugador.getDados.return_value = [None] * 5
 
     jugador = Jugador(nombre="test", cacho = mock_cacho_jugador)
-    assert jugador.get_cantidad_dados() == 5
+    assert jugador.getCantidadDados() == 5
