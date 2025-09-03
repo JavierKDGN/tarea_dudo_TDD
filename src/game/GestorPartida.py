@@ -13,6 +13,7 @@ class GestorPartida:
         self.__jugador_actual = jugadores[0]
         self.__partida_terminada = False
         self.__apuesta_actual = None
+        self.__dados_iniciales = len(jugadores) * 5 # 5 dados de partida cada uno
 
     def getJugadores(self) -> list[Jugador]:
         return self.__jugadores
@@ -100,10 +101,72 @@ class GestorPartida:
             else:
                 pass
 
-    def dudar(self):
-        jugador_anterior = self.getJugadorAnterior()
-        ArbitroRonda.resolver(self.__jugadores, jugador_anterior, self.__jugador_actual, self.__apuesta_actual.get_amount(), self.__apuesta_actual.get_number(), "dudo" )
+    def _iniciar_siguiente_ronda(self):
+        # Resetea el estado
+        self.setApuestaActual(None)
+        # Establece el turno en el jugador de ronda anterior
 
+    def _calcular_total_dados(self):
+        total = 0
+        for jugador in self.__jugadores:
+            total += len(jugador.getCacho().getDados())
+        return total
+
+    def _es_valido_calzar(self):
+        jugador_con_un_dado = self.getJugadorActual().getCantidadDados() == 1
+        mitad_de_dados_en_juego = self._calcular_total_dados() <= self.__dados_iniciales // 2
+        return jugador_con_un_dado or mitad_de_dados_en_juego
+
+    def _resolver_ronda_con_ganador_de_dado(self, jugador_ganador):
+        jugador_ganador.get_cacho().addDado()
+
+    def dudar(self):
+        jugador_apostador = self.getJugadorAnterior()
+        jugador_que_duda = self.getJugadorActual()
+        apuesta_en_juego = self.getApuestaActual()
+        lista_de_jugadores = self.getJugadores()
+
+        (perdedor, resultado) = ArbitroRonda.resolver(
+            jugadores=lista_de_jugadores,
+            jugador1=jugador_apostador,
+            jugador2=jugador_que_duda,
+            cantidad_apuesta=apuesta_en_juego.get_amount(),
+            pinta=apuesta_en_juego.get_number(),
+            accion="dudo"
+        )
+        #    Reutiliza logica de perdida de un dado y sus consecuencias
+        self.resolver_ronda_con_perdedor(perdedor)
+
+        self._iniciar_siguiente_ronda()
+
+    def calzar(self):
+        if not self._es_valido_calzar():
+            return  # no se hace nada
+
+        # Si es que es valido, recopilar la informacion como en dudar.
+        jugador_apostador = self.getJugadorAnterior()
+        jugador_que_calza = self.getJugadorActual()
+        apuesta_en_juego = self.getApuestaActual()
+        lista_de_jugadores = self.getJugadores()
+
+        (jugador_afectado, resultado) = ArbitroRonda.resolver(
+            jugadores=lista_de_jugadores,
+            jugador1=jugador_apostador,
+            jugador2=jugador_que_calza,
+            cantidad_apuesta=apuesta_en_juego.get_amount(),
+            pinta=apuesta_en_juego.get_number(),
+            accion="calzo"
+        )
+
+
+        if resultado == -1:  # El que calzó pierde un dado.
+            self.resolver_ronda_con_perdedor(jugador_afectado)
+            turno_siguiente_ronda = jugador_afectado
+        elif resultado == 1:  # El que calzó gana un dado.
+            self._resolver_ronda_con_ganador_de_dado(jugador_afectado)
+            turno_siguiente_ronda = jugador_afectado
+
+        self._iniciar_siguiente_ronda()
 
 
 
