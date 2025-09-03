@@ -56,6 +56,18 @@ def test_gestor_llama_a_removeDado_del_perdedor(mock_jugadores_factory, mocker):
 
     mock_cacho.removeDado.assert_called_once()
 
+def test_jugador_eliminado_cuando_pierde_dados(mock_jugadores_factory):
+    jugadores = mock_jugadores_factory(1, 1) # 1 jugador con 1 dado
+    jugador_perdedor = jugadores[0]
+    gestor = GestorPartida(jugadores)
+
+    gestor.perdida_de_dado(jugador_perdedor)
+
+    assert jugador_perdedor not in gestor.get_jugadores()
+
+
+
+
 
 
 
