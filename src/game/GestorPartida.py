@@ -8,16 +8,17 @@ class GestorPartida:
     def __init__(self, jugadores: list):
         self.__jugadores = jugadores
         self.__jugador_actual = None
+        self.__indice_jugador_actual = 0
         self.__partida_terminada = False
 
     def getJugadores(self) -> list[Jugador]:
         return self.__jugadores
 
     def getJugadorActual(self) -> Jugador:
-        return self.__jugador_actual
+        return self.__jugadores[self.__indice_jugador_actual]
 
     def setJugadorActual(self, jugador):
-        self.__jugador_actual = jugador
+        self.__indice_jugador_actual = self.__jugadores.index(jugador)
 
     def getPartidaTerminada(self):
         return self.__partida_terminada
@@ -44,17 +45,21 @@ class GestorPartida:
                 jugadores_dados_map.pop(p)
 
         self.__jugador_actual = list(jugadores_dados_map)[0]
+        self.__indice_jugador_actual = self.__jugadores.index(self.__jugador_actual)
 
     def avanzar_turno(self):
-        idx = self.__jugadores.index(self.__jugador_actual)
-        self.__jugador_actual = self.__jugadores[(idx + 1) % len(self.__jugadores)]
+        self.__indice_jugador_actual += 1
+        self.__jugador_actual = self.__jugadores[(self.__indice_jugador_actual) % len(self.__jugadores)]
 
     def _quitar_dado_a_jugador(self, jugador: Jugador):
         jugador.getCacho().removeDado()
 
     def _verificar_eliminacion_jugador(self, jugador: Jugador):
         if len(jugador.getCacho().getDados()) == 0:
-            self.__jugadores.remove(jugador)
+            idx = self.__jugadores.index(jugador)
+            self.__jugadores.pop(idx)
+            if idx <= self.__indice_jugador_actual:
+                self.__indice_jugador_actual -= 1
 
     def _verificar_condicion_victoria(self):
         if len(self.__jugadores) == 1:
