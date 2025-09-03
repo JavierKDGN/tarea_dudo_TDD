@@ -49,12 +49,30 @@ class GestorPartida:
         idx = self.__jugadores.index(self.__jugador_actual)
         self.__jugador_actual = self.__jugadores[(idx + 1) % len(self.__jugadores)]
 
+    def _quitar_dado_a_jugador(self, jugador: Jugador):
+        jugador.getCacho().removeDado()
+
+    def _verificar_eliminacion_jugador(self, jugador: Jugador):
+        if len(jugador.getCacho().getDados()) == 0:
+            self.__jugadores.remove(jugador)
+
+    def _verificar_condicion_victoria(self):
+        if len(self.__jugadores) == 1:
+            self.__jugador_actual = self.__jugadores.pop()
+            self.__partida_terminada = True
+
+    def resolver_ronda_con_perdedor(self, jugador_perdedor: Jugador):
+        self._quitar_dado_a_jugador(jugador_perdedor)
+        self._verificar_eliminacion_jugador(jugador_perdedor)
+        self._verificar_condicion_victoria()
+
+
     def perdida_de_dado(self, jugador_perdedor: Jugador):
         jugador_perdedor.getCacho().removeDado()
         if len(jugador_perdedor.getCacho().getDados()) == 0:
             self.__jugadores.remove(jugador_perdedor)
             if len(self.__jugadores) == 1:
-                self.__jugador_actual = self.__jugadores.pop()
+                self.__jugador_actual = self.__jugadores[0]
                 self.__partida_terminada = True
 
 
