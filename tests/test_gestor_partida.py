@@ -101,6 +101,23 @@ def test_gestor_acepta_apuesta_valida_ronda_normal(mock_jugadores_factory, mocke
     assert gestor.getApuestaActual() == nueva_apuesta
     assert jugador_inicial != jugador_final
 
+def test_gestor_rechaza_apuesta_invalida_ronda_normal(mock_jugadores_factory, mocker):
+    jugadores = mock_jugadores_factory(2, 2)
+    mocker.patch('src.game.GestorPartida.ValidadorApuesta.is_correct', return_value=True)
+    vieja_apuesta = mocker.Mock()
+    nueva_apuesta = mocker.Mock()
+
+    gestor = GestorPartida(jugadores)
+    gestor.setApuestaActual(vieja_apuesta)
+    jugador_inicial = gestor.getJugadorActual()
+
+    gestor.recibir_apuesta(nueva_apuesta)
+
+    jugador_final = gestor.getJugadorActual()
+
+    assert gestor.getApuestaActual() == vieja_apuesta
+    assert jugador_inicial == jugador_final
+
 
 
 
