@@ -132,6 +132,22 @@ def test_gestor_acepta_apuesta_valida_ronda_especial(mock_jugadores_factory, moc
     assert gestor.getApuestaActual() == nueva_apuesta
     assert jugador_inicial != jugador_final
 
+def test_gestor_invoca_arbitro_en_duda(mock_jugadores_factory, mocker):
+    jugadores = mock_jugadores_factory(2)
+    apuesta_actual = mocker.Mock()
+    apuesta_actual.get_pinta.return_value = 5
+    jugador_anterior = jugadores[0]
+    jugador_actual = jugadores[1]
+
+    gestor = GestorPartida(jugadores)
+    gestor.setApuestaActual(apuesta_actual)
+    gestor.setJugadorActual(jugador_actual)
+
+    mock_resolver = mocker.patch('src.game.GestorPartida.ArbitroRonda.resolver')
+    gestor.dudar()
+
+    mock_resolver.assert_called_once_with(jugadores,jugador_anterior,jugador_actual,3,5,"dudo")
+
 
 
 
