@@ -12,7 +12,6 @@ class GestorPartida:
     def get_jugadores(self) -> list[Jugador]:
         return self.__jugadores
 
-
     def get_jugador_actual(self) -> Jugador:
         return self.__jugador_actual
 
@@ -46,6 +45,8 @@ class GestorPartida:
         idx = self.__jugadores.index(self.__jugador_actual)
         self.__jugador_actual = self.__jugadores[(idx + 1) % len(self.__jugadores)]
 
+    def perdida_de_dado(self, jugador_perdedor: Jugador):
+        jugador_perdedor.get_cacho().removeDado()
 
 
 
