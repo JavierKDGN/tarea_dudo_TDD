@@ -66,7 +66,13 @@ def test_jugador_eliminado_cuando_pierde_dados(mock_jugadores_factory):
     assert jugador_perdedor not in gestor.getJugadores()
     assert len(gestor.getJugadores()) == 2
 
+def test_partida_termina_cuando_solo_queda_uno(mock_jugadores_factory):
+    jugadores = mock_jugadores_factory(2)
+    jugador_perdedor = jugadores[0]
+    gestor = GestorPartida(jugadores)
+    gestor.perdida_de_dado(jugador_perdedor)
 
+    assert gestor.getPartidaTerminada() == True
 
 
 
