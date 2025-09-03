@@ -6,7 +6,7 @@ from src.game.GestorPartida import GestorPartida
 def test_crear_gestor_con_jugadores(mock_jugadores_factory):
     gestor = GestorPartida(mock_jugadores_factory(2))
 
-    assert [p.nombre for p in gestor.get_jugadores()] == ["Jugador1", "Jugador2"]
+    assert [p.get_nombre() for p in gestor.get_jugadores()] == ["Jugador1", "Jugador2"]
 
 def test_determinar_turno_inicial(mock_jugadores_factory, mocker):
     # 3 jugadores, sus dados seran 1, 6, 1
@@ -17,7 +17,7 @@ def test_determinar_turno_inicial(mock_jugadores_factory, mocker):
 
     # Haremos que Jugador2 empiece
     gestor.determinar_turno_inicial()
-    assert gestor.get_jugador_actual().nombre == "Jugador2"
+    assert gestor.get_jugador_actual().get_nombre()== "Jugador2"
 
 def test_determinar_turno_inicial_empate(mock_jugadores_factory, mocker):
     # 3 jugadores, sus dados seran 1, 6, 6
@@ -31,7 +31,7 @@ def test_determinar_turno_inicial_empate(mock_jugadores_factory, mocker):
 
     # Deberia haber empate entre jugador2 y jugador3, se vuelve a lanzar el dado entre esos 2
     gestor.determinar_turno_inicial()
-    assert gestor.get_jugador_actual().nombre == "Jugador2"
+    assert gestor.get_jugador_actual().get_nombre() == "Jugador2"
 
 def test_siguiente_turno_2_jugadores(mock_jugadores_factory):
     jugadores = mock_jugadores_factory(2)
