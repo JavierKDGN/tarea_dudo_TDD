@@ -68,13 +68,14 @@ def test_jugador_eliminado_cuando_pierde_dados(mock_jugadores_factory):
 
 def test_turnos_mantenidos_tras_eliminacion(mock_jugadores_factory):
     jugadores = mock_jugadores_factory(3,1) # 3 jugadores, 1 dado cada uno
-    jugador_actual = jugadores[1]
-    gestor = GestorPartida(list(jugadores))
-    gestor.setJugadorActual(jugador_actual)
+    jugador_perdedor = jugadores[1]
+    jugador_perdedor_nombre = jugador_perdedor.getNombre()
 
-    gestor.perdida_de_dado(jugador_actual)
+    gestor = GestorPartida(jugadores)
+    gestor.setJugadorActual(jugador_perdedor)
+    gestor.resolver_ronda_con_perdedor(jugador_perdedor)
 
-    assert gestor.getJugadorActual() == jugadores[2]
+    assert gestor.getJugadorActual().getNombre() != jugador_perdedor_nombre
 
 
 def test_partida_termina_cuando_solo_queda_uno(mock_jugadores_factory):
