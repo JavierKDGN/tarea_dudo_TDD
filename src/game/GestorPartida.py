@@ -94,15 +94,6 @@ class GestorPartida:
                 pass
 
 
-    def perdida_de_dado(self, jugador_perdedor: Jugador):
-        jugador_perdedor.getCacho().removeDado()
-        if len(jugador_perdedor.getCacho().getDados()) == 0:
-            self.__jugadores.remove(jugador_perdedor)
-            if len(self.__jugadores) == 1:
-                self.__jugador_actual = self.__jugadores[0]
-                self.__partida_terminada = True
-
-
 
 
 
