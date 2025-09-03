@@ -1,6 +1,7 @@
 import random
 
 from src.game.Jugador import Jugador
+from src.game.ValidadorApuesta import Apuesta, ValidadorApuesta
 
 
 class GestorPartida:
@@ -10,6 +11,7 @@ class GestorPartida:
         self.__jugador_actual = None
         self.__indice_jugador_actual = 0
         self.__partida_terminada = False
+        self.__apuesta_actual = None
 
     def getJugadores(self) -> list[Jugador]:
         return self.__jugadores
@@ -19,6 +21,12 @@ class GestorPartida:
 
     def setJugadorActual(self, jugador):
         self.__indice_jugador_actual = self.__jugadores.index(jugador)
+
+    def getApuestaActual(self) -> Apuesta:
+        return self.__apuesta_actual
+
+    def setApuestaActual(self, apuesta: Apuesta):
+        self.__apuesta_actual = apuesta
 
     def getPartidaTerminada(self):
         return self.__partida_terminada
@@ -70,6 +78,11 @@ class GestorPartida:
         self._quitar_dado_a_jugador(jugador_perdedor)
         self._verificar_eliminacion_jugador(jugador_perdedor)
         self._verificar_condicion_victoria()
+
+    def recibir_apuesta(self, nueva_apuesta: Apuesta):
+        if ValidadorApuesta.is_correct(self.__apuesta_actual, nueva_apuesta):
+            self.__apuesta_actual = nueva_apuesta
+            self.avanzar_turno()
 
 
     def perdida_de_dado(self, jugador_perdedor: Jugador):
