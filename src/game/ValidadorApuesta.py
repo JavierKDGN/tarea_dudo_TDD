@@ -36,3 +36,19 @@ class ValidadorApuesta:
 			return False
 		
 		return True
+	
+	@staticmethod
+	def is_correct_special(first, prev, curr, has_one):
+		if prev == None:
+			return True
+		
+		if has_one:
+			if (prev.get_amount() >= curr.get_amount()):
+				return False
+			
+			return True
+		
+		if (prev.get_number() != curr.get_number()) or (prev.get_amount() >= curr.get_amount()):
+			return False
+		
+		return True
