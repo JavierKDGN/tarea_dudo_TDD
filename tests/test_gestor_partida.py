@@ -50,9 +50,11 @@ def test_gestor_llama_a_removeDado_del_perdedor(mock_jugadores_factory, mocker):
     jugador_perdedor = jugadores[0]
 
     gestor = GestorPartida(jugadores)
+    mock_cacho = jugador_perdedor.get_cacho()
+
     gestor.perdida_de_dado(jugador_perdedor)
 
-    jugador_perdedor.cacho.removeDado.assert_called_once()
+    mock_cacho.removeDado.assert_called_once()
 
 
 
