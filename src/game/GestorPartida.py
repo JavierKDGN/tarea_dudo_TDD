@@ -8,8 +8,8 @@ class GestorPartida:
 
     def __init__(self, jugadores: list):
         self.__jugadores = jugadores
-        self.__jugador_actual = None
         self.__indice_jugador_actual = 0
+        self.__jugador_actual = jugadores[0]
         self.__partida_terminada = False
         self.__apuesta_actual = None
 
@@ -80,11 +80,18 @@ class GestorPartida:
         self._verificar_condicion_victoria()
 
     def recibir_apuesta(self, nueva_apuesta: Apuesta):
-        if ValidadorApuesta.is_correct(self.__apuesta_actual, nueva_apuesta):
-            self.__apuesta_actual = nueva_apuesta
-            self.avanzar_turno()
+        if len(self.__jugador_actual.getCacho().getDados()) == 1:
+            if ValidadorApuesta.is_correct_special(self.__apuesta_actual, nueva_apuesta):
+                self.__apuesta_actual = nueva_apuesta
+                self.avanzar_turno()
+            else:
+                pass
         else:
-            pass
+            if ValidadorApuesta.is_correct(self.__apuesta_actual, nueva_apuesta):
+                self.__apuesta_actual = nueva_apuesta
+                self.avanzar_turno()
+            else:
+                pass
 
 
     def perdida_de_dado(self, jugador_perdedor: Jugador):
