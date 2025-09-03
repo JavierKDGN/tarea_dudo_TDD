@@ -43,3 +43,17 @@ def test_siguiente_turno_2_jugadores(mock_jugadores_factory):
     gestor.avanzar_turno()
 
     assert gestor.get_jugador_actual() == jugadores[1]
+
+def test_gestor_llama_a_removeDado_del_perdedor(mock_jugadores_factory, mocker):
+    # Mock 1 jugador
+    jugadores = mock_jugadores_factory(1)
+    jugador_perdedor = jugadores[0]
+
+    gestor = GestorPartida(jugadores)
+    gestor.perdida_de_dado(jugador_perdedor)
+
+    jugador_perdedor.cacho.removeDado.assert_called_once()
+
+
+
+
