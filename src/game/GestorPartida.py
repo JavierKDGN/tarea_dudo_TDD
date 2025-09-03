@@ -22,6 +22,7 @@ class GestorPartida:
 
     def setJugadorActual(self, jugador):
         self.__indice_jugador_actual = self.__jugadores.index(jugador)
+        self.__jugador_actual = self.__jugadores[self.__indice_jugador_actual]
 
     def getApuestaActual(self) -> Apuesta:
         return self.__apuesta_actual
@@ -100,7 +101,8 @@ class GestorPartida:
                 pass
 
     def dudar(self):
-        ArbitroRonda.resolver(self.__jugadores, jugador_anterior, self.__jugador_actual, self.__apuesta_actual.get_number, self.__apuesta_actual.get_amount, "dudo" )
+        jugador_anterior = self.getJugadorAnterior()
+        ArbitroRonda.resolver(self.__jugadores, jugador_anterior, self.__jugador_actual, self.__apuesta_actual.get_amount(), self.__apuesta_actual.get_number(), "dudo" )
 
 
 
