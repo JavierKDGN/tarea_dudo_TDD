@@ -8,6 +8,7 @@ class GestorPartida:
     def __init__(self, jugadores: list):
         self.__jugadores = jugadores
         self.__jugador_actual = None
+        self.__partida_terminada = False
 
     def getJugadores(self) -> list[Jugador]:
         return self.__jugadores
@@ -17,6 +18,9 @@ class GestorPartida:
 
     def setJugadorActual(self, jugador):
         self.__jugador_actual = jugador
+
+    def getPartidaTerminada(self):
+        return self.__partida_terminada
 
     def determinar_turno_inicial(self):
         jugadores_dados_map = dict.fromkeys(self.__jugadores, 0)
@@ -49,6 +53,9 @@ class GestorPartida:
         jugador_perdedor.getCacho().removeDado()
         if len(jugador_perdedor.getCacho().getDados()) == 0:
             self.__jugadores.remove(jugador_perdedor)
+            if len(self.__jugadores) == 1:
+                self.__jugador_actual = self.__jugadores.pop()
+                self.__partida_terminada = True
 
 
 
