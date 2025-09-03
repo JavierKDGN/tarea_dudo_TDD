@@ -27,8 +27,8 @@ def mock_jugadores_factory(mocker):
             jugador.__cacho.getDados.side_effect = getDados
             jugador.__cacho.removeDado.side_effect = removeDado
 
-            jugador.get_cacho.return_value = jugador.__cacho
-            jugador.get_nombre.return_value = jugador.__nombre
+            jugador.getCacho.return_value = jugador.__cacho
+            jugador.getNombre.return_value = jugador.__nombre
 
             jugadores.append(jugador)
         return jugadores

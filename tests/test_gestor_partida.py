@@ -6,7 +6,7 @@ from src.game.GestorPartida import GestorPartida
 def test_crear_gestor_con_jugadores(mock_jugadores_factory):
     gestor = GestorPartida(mock_jugadores_factory(2))
 
-    assert [p.get_nombre() for p in gestor.get_jugadores()] == ["Jugador1", "Jugador2"]
+    assert [p.getNombre() for p in gestor.getJugadores()] == ["Jugador1", "Jugador2"]
 
 def test_determinar_turno_inicial(mock_jugadores_factory, mocker):
     # 3 jugadores, sus dados seran 1, 6, 1
@@ -17,7 +17,7 @@ def test_determinar_turno_inicial(mock_jugadores_factory, mocker):
 
     # Haremos que Jugador2 empiece
     gestor.determinar_turno_inicial()
-    assert gestor.get_jugador_actual().get_nombre()== "Jugador2"
+    assert gestor.getJugadorActual().getNombre() == "Jugador2"
 
 def test_determinar_turno_inicial_empate(mock_jugadores_factory, mocker):
     # 3 jugadores, sus dados seran 1, 6, 6
@@ -31,18 +31,18 @@ def test_determinar_turno_inicial_empate(mock_jugadores_factory, mocker):
 
     # Deberia haber empate entre jugador2 y jugador3, se vuelve a lanzar el dado entre esos 2
     gestor.determinar_turno_inicial()
-    assert gestor.get_jugador_actual().get_nombre() == "Jugador2"
+    assert gestor.getJugadorActual().getNombre() == "Jugador2"
 
 def test_siguiente_turno_2_jugadores(mock_jugadores_factory):
     jugadores = mock_jugadores_factory(2)
     gestor = GestorPartida(jugadores)
-    gestor.set_jugador_actual(gestor.get_jugadores()[0])
+    gestor.setJugadorActual(gestor.getJugadores()[0])
 
-    assert gestor.get_jugador_actual() == jugadores[0]
+    assert gestor.getJugadorActual() == jugadores[0]
 
     gestor.avanzar_turno()
 
-    assert gestor.get_jugador_actual() == jugadores[1]
+    assert gestor.getJugadorActual() == jugadores[1]
 
 def test_gestor_llama_a_removeDado_del_perdedor(mock_jugadores_factory, mocker):
     # Mock 1 jugador
@@ -50,7 +50,7 @@ def test_gestor_llama_a_removeDado_del_perdedor(mock_jugadores_factory, mocker):
     jugador_perdedor = jugadores[0]
 
     gestor = GestorPartida(jugadores)
-    mock_cacho = jugador_perdedor.get_cacho()
+    mock_cacho = jugador_perdedor.getCacho()
 
     gestor.perdida_de_dado(jugador_perdedor)
 
@@ -63,8 +63,8 @@ def test_jugador_eliminado_cuando_pierde_dados(mock_jugadores_factory):
 
     gestor.perdida_de_dado(jugador_perdedor)
 
-    assert jugador_perdedor not in gestor.get_jugadores()
-    assert len(gestor.get_jugadores()) == 2
+    assert jugador_perdedor not in gestor.getJugadores()
+    assert len(gestor.getJugadores()) == 2
 
 
 

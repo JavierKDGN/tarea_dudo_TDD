@@ -12,17 +12,17 @@ class Jugador:
         self.__nombre = nombre
         self.__cacho = cacho
 
-    def get_cantidad_dados(self):
+    def getCantidadDados(self):
         return len(self.__cacho.getDados())
 
-    def get_cacho(self):
+    def getCacho(self):
         return self.__cacho
 
-    def set_cacho(self, cacho: Cacho):
+    def setCacho(self, cacho: Cacho):
         self.__cacho = cacho
 
-    def get_nombre(self):
+    def getNombre(self):
         return self.__nombre
 
-    def set_nombre(self, nombre):
+    def setNombre(self, nombre):
         self.__nombre = nombre

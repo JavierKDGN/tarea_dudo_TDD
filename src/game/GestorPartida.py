@@ -9,13 +9,13 @@ class GestorPartida:
         self.__jugadores = jugadores
         self.__jugador_actual = None
 
-    def get_jugadores(self) -> list[Jugador]:
+    def getJugadores(self) -> list[Jugador]:
         return self.__jugadores
 
-    def get_jugador_actual(self) -> Jugador:
+    def getJugadorActual(self) -> Jugador:
         return self.__jugador_actual
 
-    def set_jugador_actual(self, jugador):
+    def setJugadorActual(self, jugador):
         self.__jugador_actual = jugador
 
     def determinar_turno_inicial(self):
@@ -46,8 +46,8 @@ class GestorPartida:
         self.__jugador_actual = self.__jugadores[(idx + 1) % len(self.__jugadores)]
 
     def perdida_de_dado(self, jugador_perdedor: Jugador):
-        jugador_perdedor.get_cacho().removeDado()
-        if len(jugador_perdedor.get_cacho().getDados()) == 0:
+        jugador_perdedor.getCacho().removeDado()
+        if len(jugador_perdedor.getCacho().getDados()) == 0:
             self.__jugadores.remove(jugador_perdedor)
 
 
