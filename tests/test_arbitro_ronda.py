@@ -1,4 +1,4 @@
-from pytest_mock import mocker
+
 from src.game.ArbitroRonda import ArbitroRonda
 
 from src.game.Cacho import Cacho
@@ -8,7 +8,7 @@ def make_dado(n):
     d = Dado()
     d.setValue(n)
     return d
-def test_dudo_correcto():
+def test_dudo_correcto(mocker):
     jugador1 = Jugador("Alice",Cacho())
     jugador2 = Jugador("Bob",Cacho())
     jugadores = [jugador1,jugador2,Jugador("Carol",Cacho())]
@@ -25,7 +25,7 @@ def test_dudo_correcto():
         mocker.patch.object(jugadores[i].cacho,"getDados",return_value=dados)
 
     assert ArbitroRonda.resolver(jugadores,jugador1,jugador2,cantidad_apuesta,pinta,"dudo") == (jugador1,-1)
-def test_dudo_incorrecto():
+def test_dudo_incorrecto(mocker):
     jugador1 = Jugador("Alice",Cacho())
     jugador2 = Jugador("Bob",Cacho())
     jugadores = [jugador1,jugador2,Jugador("Carol",Cacho())]
@@ -42,7 +42,7 @@ def test_dudo_incorrecto():
         mocker.patch.object(jugadores[i].cacho,"getDados",return_value=dados)
 
     assert ArbitroRonda.resolver(jugadores,jugador1,jugador2,cantidad_apuesta,pinta,"dudo") == (jugador2,-1)
-def test_calzo_correcto():
+def test_calzo_correcto(mocker):
     jugador1 = Jugador("Alice",Cacho())
     jugador2 = Jugador("Bob",Cacho())
     jugadores = [jugador1,jugador2,Jugador("Carol",Cacho())]
@@ -59,7 +59,7 @@ def test_calzo_correcto():
         mocker.patch.object(jugadores[i].cacho,"getDados",return_value=dados)
 
     assert ArbitroRonda.resolver(jugadores,jugador1,jugador2,cantidad_apuesta,pinta,"calzo") == (jugador2,1)
-def test_calzo_incorrecto():
+def test_calzo_incorrecto(mocker):
     jugador1 = Jugador("Alice",Cacho())
     jugador2 = Jugador("Bob",Cacho())
     jugadores = [jugador1,jugador2,Jugador("Carol",Cacho())]
