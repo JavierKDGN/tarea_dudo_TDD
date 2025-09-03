@@ -83,6 +83,8 @@ class GestorPartida:
         if ValidadorApuesta.is_correct(self.__apuesta_actual, nueva_apuesta):
             self.__apuesta_actual = nueva_apuesta
             self.avanzar_turno()
+        else:
+            pass
 
 
     def perdida_de_dado(self, jugador_perdedor: Jugador):
