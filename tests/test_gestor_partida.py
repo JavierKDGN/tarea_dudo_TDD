@@ -2,6 +2,8 @@ import pytest
 from pytest_mock import mocker
 
 from src.game.GestorPartida import GestorPartida
+from src.game.ValidadorApuesta import ValidadorApuesta, Apuesta
+
 
 def test_crear_gestor_con_jugadores(mock_jugadores_factory):
     gestor = GestorPartida(mock_jugadores_factory(2))
@@ -85,6 +87,21 @@ def test_partida_termina_cuando_solo_queda_uno(mock_jugadores_factory):
     gestor.resolver_ronda_con_perdedor(jugador_perdedor)
 
     assert gestor.getPartidaTerminada() == True
+
+def test_gestor_acepta_apuesta_valida_ronda_normal(mock_jugadores_factory, mocker):
+    jugadores = mock_jugadores_factory(2, 2) #2 j, 2 d
+    mocker.patch('src.game.ValidadorApuesta.is_correct', return_value=True)
+    nueva_apuesta = mocker.Mock()
+
+    gestor = GestorPartida(jugadores)
+    jugador_inicial = gestor.getJugadorActual()
+    gestor.recibir_apuesta(nueva_apuesta)
+    jugador_final = gestor.getJugadorActual()
+
+    assert gestor.getApuestaActual() == nueva_apuesta
+    assert jugador_inicial != jugador_final
+
+
 
 
 
